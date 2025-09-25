@@ -1,0 +1,158 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Amierul</title>
+  <style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ffff;
+  color: #333;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.0rem;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #0071e3;
+}
+      
+.text {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #fff;
+}
+
+.text h1 {
+  font-size: 2.5rem;
+  line-height: 1.5;
+}
+
+.text h1 span {
+  color: #ff8da1;
+}
+      
+.main-image img {
+  width: 28%;
+  height: 50%;
+  display: flex;
+}
+footer {
+  text-align: center;
+  padding: 10px 0;
+  background: #fff;
+  border-top: 1px solid #ddd;
+}
+.button {
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #ff8da1, #1261ad);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+.button:hover {
+  background: linear-gradient(135deg, #1261ad, #ff8da1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+}
+    </style>
+    </head>
+<body>
+<html>
+<body>
+  <nav class="navbar">
+    <div class="logo">26.09.25</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="mierulnote.html">Mierul's Note</a></li>
+      <li><a href="chemistry.html">Quizzz</a></li>
+      <li><a href="ceritakita.html">Our Story</a></li>
+      <li><a href="supporter.html">Supporter</a></li>
+      <li><a href="puzzle.html">Game</a></li>
+      <li><a href="lastvid.html">Last</a></li>
+    </ul>
+  </nav>
+  <section class="text">
+    <h1><span>Your Forever.</span> Backbone</h1>
+        <center>
+  <div class="main-image">
+    <img src="IBU.png">
+</center>
+        <div class="caption">
+          <h3>Supporter No 1.</h3>
+          <p>siapa lagi kalau bukan ibu kan? orang yang always jadi penguat u. i ni always utamakan family side partner i so i tahu u dengan ibu macam mana and semoga ibu sentiasa sihat, dipanjangkan umur supaya one day u or kita mampu banggakan ibu & senangkan ibu. aamin.</p>
+        </div>
+  </div>
+        <center>
+  <div class="main-image">
+    <img src="ME.png">
+</center>
+        <div class="caption">
+          <h3>Supporter No 2.</h3>
+          <p>sorry ibu, i pun nak claim. i tahu i lambat hadir dalam hidup u, tapi u kata save the best for the last kan? i akan sentiasa jadi supporter u & backbone u selagi kita ada. i prove it last semester, i go struggle together dengan u bukan kerja u je tapi kerja i sekali and alhamdulillah for the result. more to come, inshaAllah tu janji i. (gambar ter-low brightness, tu yg gelap sikit)</p>
+        </div>
+  </div>
+  </section>
+  <audio id="bgMusic" loop preload="auto" src="Andra And The Backbone - Sempurna (Lyrics).mp3"></audio>
+
+<script>
+  const bgMusic = document.getElementById("bgMusic");
+
+  // Start music when user clicks a button or interacts
+  function startMusic() {
+    bgMusic.volume = 0.2; // start soft
+    bgMusic.play().catch(()=>{}); // avoid autoplay block error
+    document.removeEventListener("click", startMusic); // only once
+  }
+  document.addEventListener("click", startMusic);
+
+  // Keyboard volume control
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowUp") {
+      bgMusic.volume = Math.min(bgMusic.volume + 0.1, 1);
+    } else if (e.key === "ArrowDown") {
+      bgMusic.volume = Math.max(bgMusic.volume - 0.1, 0);
+    }
+  });
+</script>
+  <footer>
+  <p>© Muhammad Amierul Haqeem</p>
+  </footer>
+</body>
+</html>

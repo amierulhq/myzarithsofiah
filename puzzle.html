@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Puzzle</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #fdf6f9, #ffeaf1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #d6336c;
+      margin-bottom: 20px;
+    }
+
+    #puzzle {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 5px;
+      margin-bottom: 20px;
+    }
+
+    .piece {
+      width: 100px;
+      height: 100px;
+      background-size: 300px 300px;
+      cursor: grab;
+      border-radius: 6px;
+      transition: transform 0.2s;
+    }
+    .piece:active {
+      cursor: grabbing;
+      transform: scale(1.05);
+    }
+
+    #popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    #popup-content {
+      background: white;
+      padding: 40px 60px;
+      border-radius: 20px;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #d6336c;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: pop 0.6s ease;
+      text-align: center;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    #nextBtn {
+      display: none;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 30px;
+      background: #d6336c;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #nextBtn:hover {
+      background: #b02555;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Puzzle</h1>
+  <div id="puzzle"></div>
+
+  <button id="nextBtn">Next Page ➡️</button>
+
+  <div id="popup">
+    <div id="popup-content">"easy" - zarith sofiah</div>
+  </div>
+
+  <script>
+    const puzzle = document.getElementById("puzzle");
+    const popup = document.getElementById("popup");
+    const nextBtn = document.getElementById("nextBtn");
+
+    const imageSrc = "PUZZLE.JPG"; // replace with your image
+    const size = 3; // 3x3 puzzle
+    let pieces = [];
+
+    // Generate puzzle pieces
+    for (let row = 0; row < size; row++) {
+      for (let col = 0; col < size; col++) {
+        const index = row * size + col;
+        const piece = document.createElement("div");
+        piece.classList.add("piece");
+        piece.style.backgroundImage = `url(${imageSrc})`;
+        piece.style.backgroundPosition = `-${col * 100}px -${row * 100}px`;
+        piece.setAttribute("data-index", index);
+        pieces.push(piece);
+      }
+    }
+
+    // Shuffle pieces
+    pieces.sort(() => Math.random() - 0.5);
+    pieces.forEach(p => puzzle.appendChild(p));
+
+    // Drag and drop logic
+    let dragged = null;
+
+    pieces.forEach(piece => {
+      piece.draggable = true;
+
+      piece.addEventListener("dragstart", () => {
+        dragged = piece;
+        setTimeout(() => piece.style.display = "none", 0);
+      });
+
+      piece.addEventListener("dragend", () => {
+        dragged.style.display = "block";
+        dragged = null;
+      });
+
+      piece.addEventListener("dragover", e => e.preventDefault());
+
+      piece.addEventListener("drop", () => {
+        if (dragged !== piece) {
+          let draggedIndex = Array.from(puzzle.children).indexOf(dragged);
+          let targetIndex = Array.from(puzzle.children).indexOf(piece);
+
+          if (draggedIndex > targetIndex) {
+            puzzle.insertBefore(dragged, piece);
+            puzzle.insertBefore(piece, puzzle.children[draggedIndex]);
+          } else {
+            puzzle.insertBefore(piece, dragged);
+            puzzle.insertBefore(dragged, puzzle.children[targetIndex]);
+          }
+
+          checkCompletion();
+        }
+      });
+    });
+
+    function checkCompletion() {
+      const current = Array.from(puzzle.children).map(p => p.getAttribute("data-index"));
+      const correct = [...current].sort((a, b) => a - b);
+      if (JSON.stringify(current) === JSON.stringify(correct)) {
+        popup.style.display = "flex";
+        setTimeout(() => {
+          popup.style.display = "none";
+          nextBtn.style.display = "inline-block";
+        }, 1500);
+      }
+    }
+
+    nextBtn.addEventListener("click", () => {
+      window.location.href = "lastvid.html"; // change to your next page
+    });
+  </script>
+
+</body>
+</html>
